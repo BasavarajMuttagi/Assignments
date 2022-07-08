@@ -14,7 +14,7 @@ class Student{
         this.YearofPassing=YearofPassing
         this.NumberOfYearstoGraduate=NumberOfYearstoGraduate
     }
-    static calculateAge(DateOfBirth){
+    static #calculateAge(DateOfBirth){
       let DOB = new Date(DateOfBirth)
       let Today = new Date()
       let DateUpperLimit = Today.valueOf()
@@ -23,7 +23,7 @@ class Student{
       return Age
     }
 
-   static  calculatAverage(array) {
+   static  #calculatAverage(array) {
       var i = 0, sum = 0, len = array.length;
       while (i < len) {
           sum = sum + array[i++];
@@ -31,7 +31,7 @@ class Student{
       return sum / len;
     }
 
-   static  assignGrades(SemesterCGPAArray){
+   static  #assignGrades(SemesterCGPAArray){
       let tempArray = []
       for(let index = 0; index <SemesterCGPAArray.length; index ++){
         if(SemesterCGPAArray[index] >9 && SemesterCGPAArray[index] <=10){
@@ -53,7 +53,7 @@ class Student{
       return tempArray
     }
 
-    static  assignFinalGrade(FinalCGPA){
+    static  #assignFinalGrade(FinalCGPA){
       let tempGrade
       
         if(FinalCGPA >9 && FinalCGPA  <=10){
@@ -75,18 +75,18 @@ class Student{
       return tempGrade
     }
 
-    static splitName(fullName){
+    static #splitName(fullName){
       const splitName = fullName.split(" ");
       return splitName
     }
 
     static createNewStudent(firstName,lastName,DOB,SemesterCGPAArray,YearofEnrollment,YearofPassing) {
         const fullName = firstName +" "+lastName
-        const AGE = Student.calculateAge(DOB)
+        const AGE = Student.#calculateAge(DOB)
         const NumberOfYearstoGraduate = YearofPassing - YearofEnrollment
-        const CGPA = Student.calculatAverage(SemesterCGPAArray)
-        const SemesterGrades = Student.assignGrades(SemesterCGPAArray)
-        const FinalGrade = Student.assignFinalGrade(CGPA)
+        const CGPA = Student.#calculatAverage(SemesterCGPAArray)
+        const SemesterGrades = Student.#assignGrades(SemesterCGPAArray)
+        const FinalGrade = Student.#assignFinalGrade(CGPA)
         const tempStudent = new Student(firstName,lastName,fullName,DOB,AGE,SemesterCGPAArray,CGPA,SemesterGrades,FinalGrade,YearofEnrollment,YearofPassing,NumberOfYearstoGraduate)
         return tempStudent;
       }
@@ -97,7 +97,7 @@ class Student{
       }
       updateCGPA(CGPA){
         this.SemesterCGPAArray = CGPA
-        this.SemesterGrades = Student.assignGrades(SemesterCGPAArray)
+        this.SemesterGrades = Student.#assignGrades(SemesterCGPAArray)
       }
       
       updateFirstName(firstName) {
@@ -125,7 +125,7 @@ class Student{
     }
 
     updateAge(DateOfBirth){
-      this.AGE = Student.calculateAge(DateOfBirth)
+      this.AGE = Student.#calculateAge(DateOfBirth)
     }
 
     updateDateOfBirth(DateOfBirth){
@@ -135,7 +135,7 @@ class Student{
 
   updateFullName(fullName){
     this.fullName = fullName
-    let splitNameArray = Student.splitName(fullName)
+    let splitNameArray = Student.#splitName(fullName)
     this.updateFirstName(splitNameArray[0])
     this.updateLastName(splitNameArray[1])
   }
